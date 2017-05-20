@@ -26,10 +26,3 @@ Installation
 Clone this repository's contents into your www directory on your server.
 
 Enable mod_rewrite to make use of the URL simplification provided by codeigniter.
-
-************
-Contributing
-************
-
-TwitchMan is currently an independent project. Please send me a message if you
-wish to contribute.
