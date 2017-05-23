@@ -8,6 +8,12 @@ class App extends CI_Controller {
 		$data['title'] = "Twitch Manager";
 		$data['nav'] = "Home";
 		$this->load->view('header', $data);
+		$this->load->view('default');
 		$this->load->view('footer');
+	}
+
+	public function info()
+	{
+		phpinfo();
 	}
 }

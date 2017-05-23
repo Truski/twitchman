@@ -10,3 +10,22 @@
   height: 725px;
   border: 2px solid black;
 }
+
+.center {
+  text-align: center;
+}
+
+.boxed {
+  border: 2px solid black;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 2px #888888;
+  margin-bottom: 50px;
+}
+
+.match {
+  border: 2px solid black;
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
