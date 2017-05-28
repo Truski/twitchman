@@ -141,7 +141,6 @@ $('#submit').click(function() {
 	} else {
 		score = p2s + '-' + p1s;
 	}
-	alert(match.tournament);
 	var ajaxUrl = "/op/submitScore/" + match.tournament + "/" + match.matchid + "/" + winner + "/" + score;
 	$.ajax({url: ajaxUrl, success: function(result){
 		$('#submit').addClass('disabled');
