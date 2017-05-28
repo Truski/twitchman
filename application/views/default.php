@@ -9,7 +9,7 @@
 		<div class="col-md-7">
 
 			<div class="row">
-				<h2><span id="round">Pool A</span></h2>
+				<h2><span id="round">Pools</span></h2>
 			</div>
 			<div class="row">
 				<div class="col-md-5 boxed">
@@ -27,7 +27,7 @@
 				<p><a class="btn btn-primary" id="reset">Reset Score</a> <a class="btn btn-primary" id="switch">Switch Sides</a></p>
 			</div>
 			<div class="row">
-				<p><a class="btn btn-warning" id="submit">Submit to Challonge</a></p>
+				<p><a class="btn btn-warning disabled" id="submit">Submit to Challonge</a></p>
 			</div>
 			<div class="row">
 				<p id="status" class="text-success">Up-To-Date</p>
@@ -38,20 +38,37 @@
 		</div>
 	</div>
 </div>
+
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-	<div class="modal-dialog">
+	<div class="modal-dialog" id="modal1">
 
-		<!-- Modal content-->
+		<!-- Modal1 content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Select Match</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="mod-matches">
 				<p>Loading...</p>
 			</div>
 			<div class="modal-footer">
 				<a class="btn btn-danger" id="closeModal">Close</a>
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-dialog hidden" id="modal2">
+
+		<!-- Modal2 content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Successfully Submitted Match</h4>
+			</div>
+			<div class="modal-body">
+				<p>Successfully submitted match.</p>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-success" id="closeModal2">Select New Match</a>
 			</div>
 		</div>
 

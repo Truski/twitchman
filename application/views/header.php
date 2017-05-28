@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<a href="#" id="selectmatch"><li class="list-group-item">Select Match</li></a>
 					<a href="#" id="selectcomms"><li class="list-group-item">Select Commentators</li></a>
 				</ul>
-				<iframe frameborder="0" 
+				<iframe frameborder="0"
 				scrolling="no" 
 				id="chat_embed" 
 				src="http://www.twitch.tv/<?=TWITCH_NAME?>/chat" 

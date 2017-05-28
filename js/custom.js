@@ -28,11 +28,7 @@ function operation(cmd){
 }
 
 $(document).ready(function() {
-	updating();
-	var ajaxUrl = "/op/init";
-	$.ajax({url: ajaxUrl, success: function(result){
-		uptodate();
-	}});
+	operation('Init');
 	sleep(100);
 	$("#initbox").hide();
 	$("#progbox").toggleClass("hidden");
@@ -41,18 +37,20 @@ $(document).ready(function() {
 $('#p1win').click(function() {
 	$('#p1score').html(parseInt($('#p1score').html()) + 1);
 	operation('Win/1');
-})
+});
 
 $('#p2win').click(function() {
 	$('#p2score').html(parseInt($('#p2score').html()) + 1);
 	operation('Win/2');
-})
+});
 
 $('#reset').click(function() {
 	$('#p1score').html(0);
 	$('#p2score').html(0);
 	operation("Reset");
-})
+});
+
+var swap = false;
 
 $('#switch').click(function() {
 	var p1 = $('#p1').html();
@@ -62,48 +60,105 @@ $('#switch').click(function() {
 	$('#p1score').html($('#p2score').html());
 	$('#p2score').html(p1score);
 	operation("Switch");
+	swap = !swap;
 });
 
 var myMatches = new Object();
+
+var match = null;
 
 function loadTruskiStats(p1, p2){
 	// To-do
 }
 
 function setmatch(matchid){
-	var match = myMatches[matchid];
+	match = myMatches[matchid];
 	$('#p1').html(match.player1name);
 	$('#p2').html(match.player2name);
 	$('#p1score').html(0);
 	$('#p2score').html(0);
 	$('#round').html(match.tournamentname+' - '+match.round);
 	loadTruskiStats(match.player1name, match.player2name);
+	swap = false;
 	$('#myModal').modal('hide');
-	$('.modal-body').empty();
-	$('.modal-body').append('<p>Loading...</p>');
+	$('#submit').removeClass('disabled');
 	operation('match/' + match.player1name + '/' + match.player2name + '/' + match.tournamentname + '/' + match.round);
 }
 
-$('#selectmatch').click(function() {
-	$('#myModal').modal('show');
+function getMatches(){
 	var ajaxUrl = "/op/getTournaments";
 	$.ajax({url: ajaxUrl, success: function(result){
 		var array = JSON.parse(result);
-		$('.modal-body').empty();
+		$('#mod-matches').empty();
 		for(var i = 0; i < array.length; i++){
 			var p = array[i];
 			if(!myMatches.hasOwnProperty(p.matchid)){
-				$('.modal-body').append('<div onclick="setmatch('+p.matchid+')" class="match center" id="'+p.matchid+'"><h3>'+p.tournamentname+'</h3><h2 class="text-primary">'+p.player1name+' vs '+p.player2name+' <span class="label label-default">New</span></h2><h3>'+p.round+'</h3></div>');
+				$('#mod-matches').append('<div onclick="setmatch('+p.matchid+')" class="match center" id="'+p.matchid+'"><h3>'+p.tournamentname+'</h3><h2 class="text-primary">'+p.player1name+' vs '+p.player2name+' <span class="label label-default">New</span></h2><h3>'+p.round+'</h3></div>');
 			} else {
-				$('.modal-body').append('<div onclick="setmatch('+p.matchid+')" class="match center" id="'+p.matchid+'"><h3>'+p.tournamentname+'</h3><h2 class="text-primary">'+p.player1name+' vs '+p.player2name+' </h2><h3>'+p.round+'</h3></div>');
+				$('#mod-matches').append('<div onclick="setmatch('+p.matchid+')" class="match center" id="'+p.matchid+'"><h3>'+p.tournamentname+'</h3><h2 class="text-primary">'+p.player1name+' vs '+p.player2name+' </h2><h3>'+p.round+'</h3></div>');
 			}
 			myMatches[p.matchid] = p;
 		}
+		if(array.length == 0){
+			$('#mod-matches').append('<p>No matches available.</p>');
+		}
+	}});
+}
+
+$('#selectmatch').click(function() {
+	$('#modal2').addClass('hidden');
+	$('#modal1').removeClass('hidden');
+	$('#mod-matches').empty();
+	$('#mod-matches').append('<p>Loading...</p>');
+	$('#myModal').modal('show');
+	getMatches();
+});
+
+$('#submit').click(function() {
+	var winner;
+	var p1s = $('#p1score').html();
+	var p2s = $('#p2score').html();
+	if(p1s == p2s){
+		alert("Game cannot end in a tie!");
+		return;
+	}
+	if(p1s > p2s){
+		if(!swap){
+			winner = match.player1;
+		} else {
+			winner = match.player2;
+		}
+	} else {
+		if(!swap){
+			winner = match.player2;
+		} else {
+			winner = match.player1;
+		}
+	}
+	var score;
+	if(!swap){
+		score = p1s + '-' + p2s;
+	} else {
+		score = p2s + '-' + p1s;
+	}
+	alert(match.tournament);
+	var ajaxUrl = "/op/submitScore/" + match.tournament + "/" + match.matchid + "/" + winner + "/" + score;
+	$.ajax({url: ajaxUrl, success: function(result){
+		$('#submit').addClass('disabled');
+		$('#modal1').addClass('hidden');
+		$('#modal2').removeClass('hidden');
+		$('#myModal').modal('show');
 	}});
 });
 
 $('#closeModal').click(function() {
 	$('#myModal').modal('hide');
-	$('.modal-body').empty();
-	$('.modal-body').append('<p>Loading...</p>');
+});
+
+$('#closeModal2').click(function() {
+	$('#mod-matches').empty();
+	$('#mod-matches').append('<p>Loading...</p>');
+	$('#modal2').addClass('hidden');
+	$('#modal1').removeClass('hidden');
+	getMatches();
 });

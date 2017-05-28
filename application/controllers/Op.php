@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Op extends CI_Controller {
 
-	public function init(){
+	public function scoreInit(){
 		if(!file_exists(DIRECTORY)){
 			mkdir(DIRECTORY, 0777, true);
 		}
@@ -40,6 +40,14 @@ class Op extends CI_Controller {
 		edit('title', urldecode($tourney) . ' - ' . urldecode($round));
 	}
 
+	public function submitScore($tourneyID, $matchID, $winnerID, $score){
+		include('/application/third_party/challonge.class.php');
+		$c = new ChallongeAPI(API_KEY);
+		$c->verify_ssl = false;
+
+		$c->updateMatch($tourneyID, $matchID, array('match[winner_id]'=>$winnerID,'match[scores_csv]'=>$score));
+	}
+
 	public function getTournaments(){
 		include('/application/third_party/challonge.class.php');
 		$c = new ChallongeAPI(API_KEY);
@@ -47,6 +55,10 @@ class Op extends CI_Controller {
 
 		// Get all open matches from the tapitest tournament
 		$tournaments = $c->getMatches('tapitest', array('state'=>'open'));
+		if($tournaments == false){
+			echo "[]";
+			return;
+		}
 		$matches = array();
 		$tournies = array();
 		foreach($tournaments->match as $m){
