@@ -7,6 +7,12 @@ if(!function_exists('edit')){
 	}
 }
 
+if(!function_exists('contents')){
+	function contents($key){
+		return file_get_contents(DIRECTORY . $key . ".txt");
+	}
+}
+
 if(!function_exists('round_name')){
 	function round_name($code){
 		switch($code){

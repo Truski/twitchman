@@ -27,12 +27,14 @@
 				<p><a class="btn btn-primary" id="reset">Reset Score</a> <a class="btn btn-primary" id="switch">Switch Sides</a></p>
 			</div>
 			<div class="row">
-				<p><a class="btn btn-warning" id="reset">Submit to Challonge</a></p>
+				<p><a class="btn btn-warning" id="submit">Submit to Challonge</a></p>
+			</div>
+			<div class="row">
+				<p id="status" class="text-success">Up-To-Date</p>
 			</div>
 		</div>
 		<div class="col-md-5">
 			<h2>TruskiStats &reg;</h2>
-
 		</div>
 	</div>
 </div>

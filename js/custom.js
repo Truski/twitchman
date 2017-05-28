@@ -7,7 +7,32 @@ function sleep(milliseconds) {
 	}
 }
 
+function updating(){
+	$('#status').toggleClass("text-success");
+	$('#status').html("Updating Scoreboard");
+	$('#status').toggleClass("text-warning");
+}
+
+function uptodate(){
+	$('#status').toggleClass("text-warning");
+	$('#status').html("Up-To-Date");
+	$('#status').toggleClass("text-success");
+}
+
+function operation(cmd){
+	updating();
+	var ajaxUrl = "/op/score" + cmd;
+	$.ajax({url: ajaxUrl, success: function(result){
+		uptodate();
+	}});
+}
+
 $(document).ready(function() {
+	updating();
+	var ajaxUrl = "/op/init";
+	$.ajax({url: ajaxUrl, success: function(result){
+		uptodate();
+	}});
 	sleep(100);
 	$("#initbox").hide();
 	$("#progbox").toggleClass("hidden");
@@ -15,24 +40,28 @@ $(document).ready(function() {
 
 $('#p1win').click(function() {
 	$('#p1score').html(parseInt($('#p1score').html()) + 1);
+	operation('Win/1');
 })
 
 $('#p2win').click(function() {
 	$('#p2score').html(parseInt($('#p2score').html()) + 1);
+	operation('Win/2');
 })
 
 $('#reset').click(function() {
 	$('#p1score').html(0);
 	$('#p2score').html(0);
+	operation("Reset");
 })
 
 $('#switch').click(function() {
 	var p1 = $('#p1').html();
+	var p1score = $('#p1score').html();
 	$('#p1').html($('#p2').html());
 	$('#p2').html(p1);
-	var p1score = $('#p1score').html();
 	$('#p1score').html($('#p2score').html());
 	$('#p2score').html(p1score);
+	operation("Switch");
 });
 
 var myMatches = new Object();
@@ -52,6 +81,7 @@ function setmatch(matchid){
 	$('#myModal').modal('hide');
 	$('.modal-body').empty();
 	$('.modal-body').append('<p>Loading...</p>');
+	operation('match/' + match.player1name + '/' + match.player2name + '/' + match.tournamentname + '/' + match.round);
 }
 
 $('#selectmatch').click(function() {

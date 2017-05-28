@@ -14,6 +14,32 @@ class Op extends CI_Controller {
 		edit('title', 'Pools');
 	}
 
+	public function scoreReset(){
+		edit('p1score', 0);
+		edit('p2score', 0);
+	}
+
+	public function scoreSwitch(){
+		$p1 = contents('p1');
+		$p1s = contents('p1score');
+		edit('p1', contents('p2'));
+		edit('p2', $p1);
+		edit('p1score', contents('p2score'));
+		edit('p2score', $p1s);
+	}
+
+	public function scoreWin($side){
+		edit('p' . $side . 'score', contents('p' . $side . 'score') + 1);
+	}
+
+	public function scoreMatch($p1, $p2, $tourney, $round){
+		edit('p1', $p1);
+		edit('p2', $p2);
+		edit('p1score', 0);
+		edit('p2score', 0);
+		edit('title', urldecode($tourney) . ' - ' . urldecode($round));
+	}
+
 	public function getTournaments(){
 		include('/application/third_party/challonge.class.php');
 		$c = new ChallongeAPI(API_KEY);
