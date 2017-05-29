@@ -32,6 +32,8 @@ $(document).ready(function() {
 	sleep(100);
 	$("#initbox").hide();
 	$("#progbox").toggleClass("hidden");
+	sleep(100);
+	$('#selectmatch').trigger('click');
 });
 
 $('#p1win').click(function() {
