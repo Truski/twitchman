@@ -65,36 +65,45 @@ class Op extends CI_Controller {
 		$c = new ChallongeAPI(API_KEY);
 		$c->verify_ssl = false;
 
+		// Place desired tournaments to fetch matches from
+		$tourney_names = array("btest1234");
+
 		// Get all open matches from the tapitest tournament
-		$tournaments = $c->getMatches('tapitest', array('state'=>'open'));
-		if($tournaments == false){
-			echo "[]";
-			return;
-		}
 		$matches = array();
 		$tournies = array();
-		foreach($tournaments->match as $m){
-			$match = new stdClass;
-			$match->player1 = (int)$m->{'player1-id'};
-			$match->player2 = (int)$m->{'player2-id'};
-			$match->tournament = (int)$m->{'tournament-id'};
-			$match->round = round_name($m->round);
-			$match->matchid = (int)$m->id;
-			array_push($matches, $match);
-			$tournies[(int)$match->tournament] = null;
-		}
-		
-		// Get Tournament Names
-		foreach($tournies as $key=>$val){
-			$tournies[$key] = (string)$c->getTournament($key)->name;
+		$players = array();
+
+		foreach($tourney_names as $pool){
+			$rawMatches = $c->getMatches($pool, array('state'=>'open'));
+			if($rawMatches == false){
+				echo "[]";
+				return;
+			}
+
+			// Get Matches
+			foreach($rawMatches->match as $m){
+				$match = new stdClass;
+				$match->player1 = (int)$m->{'player1-id'};
+				$match->player2 = (int)$m->{'player2-id'};
+				$match->tournament = (int)$m->{'tournament-id'};
+				$match->round = round_name($m->round);
+				$match->matchid = (int)$m->id;
+				array_push($matches, $match);
+				$tournies[(int)$match->tournament] = null;
+			}
+
+			// Get Tournament Names
+			foreach($tournies as $key=>$val){
+				$tournies[$key] = (string) $c->getTournament($key)->name;
+			}
+
+			// Get Player Names
+			$playerNames = $c->getParticipants($pool)->participant;
+			foreach($playerNames as $p){
+				$players[(int)$p->id] = (string) $p->name;
+			}
 		}
 
-		// Get Player Names
-		$playerg = $c->getParticipants('tapitest')->participant;
-		$players = array();
-		foreach($playerg as $p){
-			$players[(int)$p->id] = (string)$p->name;
-		}
 
 		// Set Tournament and Player names in returned array
 		foreach($matches as $m){
@@ -102,6 +111,7 @@ class Op extends CI_Controller {
 			$m->player2name = $players[$m->player2];
 			$m->tournamentname = $tournies[$m->tournament];
 		}
+
 		echo json_encode($matches);
 	}
 }
