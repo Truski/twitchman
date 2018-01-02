@@ -12,6 +12,7 @@ class Op extends CI_Controller {
 		edit('p1score', 0);
 		edit('p2score', 0);
 		edit('title', 'Pools');
+		edit('round', 'Pools');
 		edit('p1img', 'fox');
 		edit('p2img', 'falco');
 		edit('leftcomm', 'Left Commie');
