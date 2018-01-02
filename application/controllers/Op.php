@@ -122,4 +122,19 @@ class Op extends CI_Controller {
 		$players = $this->stats->getPlayerMap();
 		echo json_encode($players);
 	}
+
+	public function truskistats($p1, $p2){
+		$this->load->database();
+		$this->load->model('stats');
+		$p1wr = $this->stats->getWinRate($p1);
+		$p2wr = $this->stats->getWinRate($p2);
+		$obj = new stdClass();
+		$obj->p1wins = $p1wr['wins'];
+		$obj->p2wins = $p2wr['wins'];
+		$obj->p1losses = $p1wr['losses'];
+		$obj->p2losses = $p2wr['losses'];
+		$obj->p1elo = $this->stats->getEloHistory($p1);
+		$obj->p2elo = $this->stats->getEloHistory($p2);
+		echo json_encode($obj);
+	}
 }
