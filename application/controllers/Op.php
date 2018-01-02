@@ -161,7 +161,7 @@ class Op extends CI_Controller {
 		$this->load->view('playerCharacter', $data);
 	}
 
-	public function leftPlayer(){
+	public function rightPlayer(){
 		$data['img'] = contents("p2img");
 		$data['side'] = "right";
 		$this->load->view('playerCharacter', $data);
