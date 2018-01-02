@@ -11,7 +11,7 @@ html, body {
 }
 
 body {
-	background-image: url("/assets/img/statsbg.png");
+	background-image: url("/assets/img/winterbg.png");
 	box-sizing: border-box;
 }
 
