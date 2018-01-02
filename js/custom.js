@@ -140,7 +140,7 @@ function loadTruskiStats(p1, p2){
 		var myChart = new Chart(ctx1, {
 			type: 'line',
 			data: {
-				labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+				labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
 				datasets: [{
 					label: match.player1name,
 					data: obj.p1elo,
