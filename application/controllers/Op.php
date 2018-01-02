@@ -39,6 +39,10 @@ class Op extends CI_Controller {
 		edit('p' . $side . 'score', contents('p' . $side . 'score') + 1);
 	}
 
+	public function scoreLose($side){
+		edit('p' . $side . 'score', contents('p' . $side . 'score') - 1);
+	}
+
 	public function scoreMatch($p1, $p2, $tourney, $round){
 		edit('p1', $p1);
 		edit('p2', $p2);
