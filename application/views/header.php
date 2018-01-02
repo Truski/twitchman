@@ -19,14 +19,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<h2 class="text-center">Twitch Manager</h2>
 				<ul class="list-group">
 					<a href="#" id="selectmatch"><li class="list-group-item">Select Match</li></a>
-					<a href="#" id="selectcomms"><li class="list-group-item">Select Commentators</li></a>
 				</ul>
+				<p style="font-size: 150%"><span class="glyphicon glyphicon-user" style="color: red"></span> <span id="viewers"></span></p>
+				<p>Last updated: <span id="lastupdated"></span>
 				<iframe frameborder="0"
-				scrolling="no" 
-				id="chat_embed" 
-				src="http://www.twitch.tv/<?=TWITCH_NAME?>/chat" 
-				height="725" 
-				width="100%">
-			</iframe>
-		</div>
-		<div class="col-md-9">
+								scrolling="no" 
+								id="chat_embed" 
+								src="http://www.twitch.tv/<?=TWITCH_NAME?>/chat" 
+								height="725" 
+								width="100%">
+				</iframe>
+			</div>
+			<div class="col-md-9">
