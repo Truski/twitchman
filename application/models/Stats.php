@@ -60,6 +60,15 @@ class Stats extends CI_Model {
     if($rightGameWins == NULL){
       $rightGameWins = 0;
     }
+    $sql = "SELECT SUM(losses) as sum FROM matches WHERE winnerid = ? AND loserid = ?";
+    $leftGameLossWins = current($this->db->query($sql, array($p2, $p1))->result_array())['sum'];
+    $rightGameLossWins = current($this->db->query($sql, array($p1, $p2))->result_array())['sum'];
+    if($leftGameLossWins != NULL){
+      $leftGameWins += $leftGameLossWins;
+    }
+    if($rightGameLossWins != NULL){
+      $rightGameWins += $rightGameLossWins;
+    }
     $arr['leftGameWins'] = $leftGameWins;
     $arr['rightGameWins'] = $rightGameWins;
 
