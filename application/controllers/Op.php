@@ -44,11 +44,12 @@ class Op extends CI_Controller {
 	}
 
 	public function scoreMatch($p1, $p2, $tourney, $round){
-		edit('p1', $p1);
-		edit('p2', $p2);
+		edit('p1', urldecode($p1));
+		edit('p2', urldecode($p2));
 		edit('p1score', 0);
 		edit('p2score', 0);
 		edit('title', urldecode($tourney) . ' - ' . urldecode($round));
+		edit('round', urldecode($round));
 	}
 
 	public function submitScore($tourneyID, $matchID, $winnerID, $score){
