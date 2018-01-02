@@ -155,4 +155,27 @@ class Op extends CI_Controller {
 		$this->load->view('statscreen', $arr);
 	}
 
+	public function leftPlayer(){
+		$data['img'] = contents("p1img");
+		$data['side'] = "left";
+		$this->load->view('playerCharacter', $data);
+	}
+
+	public function leftPlayer(){
+		$data['img'] = contents("p2img");
+		$data['side'] = "right";
+		$this->load->view('playerCharacter', $data);
+	}
+
+	public function scoreSetImg($player, $img){
+		edit('p'.$player.'img', $img);
+	}
+
+	public function scoreSetComms($side, $id){
+		$commnames = array('Lynx', 'Hat', 'Dino', 'Alfster', 'Stormz', 'Leafeon523', 'Sea D', 'Truski');
+		$twitters = array('@SgtSkills', '', 'YT: DinoProductions', '', '@zackwind', '', '@Jeke68', '@DanWojtowicz');
+
+		edit($side.'comm', $commnames[$id]);
+		edit($side.'twitter'.$twitters[$id]);
+	}
 }
