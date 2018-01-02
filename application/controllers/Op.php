@@ -114,4 +114,12 @@ class Op extends CI_Controller {
 
 		echo json_encode($matches);
 	}
+
+	// Return a JSON array of combos from tag to id in database
+	public function getPlayerMap() {
+		$this->load->database();
+		$this->load->model('stats');
+		$players = $this->stats->getPlayerMap();
+		echo json_encode($players);
+	}
 }
