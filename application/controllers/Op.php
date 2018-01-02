@@ -178,4 +178,10 @@ class Op extends CI_Controller {
 		edit($side.'comm', $commnames[$id]);
 		edit($side.'twitter'.$twitters[$id]);
 	}
+
+	public function getelochanges(){
+		$this->load->database();
+		$this->load->model('stats');
+		$this->stats->elochanges();
+	}
 }

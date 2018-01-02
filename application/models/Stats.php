@@ -86,4 +86,36 @@ class Stats extends CI_Model {
     return $arr;
   }
 
+  public function elochanges(){
+    $sql = "SELECT * FROM matches ORDER BY matchid";
+    $result = $this->db->query($sql)->result_array();
+    $tourneyid = 0;
+    foreach ($result as $match){
+      if($tourneyid != $match['tourneyid']){
+        // Run changes script with $tourneyid
+        $sql = "SELECT playerid, elo FROM statistics ORDER BY elo DESC";
+        foreach ($this->db->query($sql)->result_array() as $row){
+          $query = "INSERT INTO elochanges (tourneyid, playerid, elo) VALUES (?, ?, ?)";
+          $this->db->query($query, array($tourneyid, $row['playerid'], $row['elo']));
+          echo 'Success - ' . $tourneyid . ' - ' . $row['playerid'] . ' - ' . $row['elo'] . '<br />';
+        }
+        $tourneyid = $match['tourneyid'];
+      }
+
+      $winner = $match['winnerid'];
+      $loser = $match['loserid'];
+      $elochange = $match['winChange'];
+      $sql = "UPDATE statistics SET wins = wins + 1, elo = elo + ? WHERE playerid = ?";
+      $this->db->query($sql, array($elochange, $winner));
+      $sql = "UPDATE statistics SET losses = losses + 1, elo = elo - ? WHERE playerid = ?";
+      $this->db->query($sql, array($elochange, $loser));
+    }
+    $sql = "SELECT playerid, elo FROM statistics ORDER BY elo DESC";
+    foreach ($this->db->query($sql)->result_array() as $row){
+      $query = "INSERT INTO elochanges (tourneyid, playerid, elo) VALUES (?, ?, ?)";
+      $this->db->query($query, array($tourneyid, $row['playerid'], $row['elo']));
+      echo 'Success - ' . $tourneyid . ' - ' . $row['playerid'] . ' - ' . $row['elo'] . '<br />';
+    }
+  }
+
 }
