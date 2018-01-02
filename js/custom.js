@@ -27,13 +27,64 @@ function operation(cmd){
 	}});
 }
 
+var mapa = {};
+
+function getPlayerMap(){
+	var ajaxUrl = "/op/getPlayerMap";
+	$.ajax({url: ajaxUrl, success: function(result){
+		var array = JSON.parse(result);
+		for(var i = 0; i < array.length; i++){
+			mapa[array[i].tag] = array[i].playerid;
+		}
+	}});
+}
+
 $(document).ready(function() {
 	operation('Init');
+	getPlayerMap();
 	sleep(100);
 	$("#initbox").hide();
 	$("#progbox").toggleClass("hidden");
 	sleep(100);
 	$('#selectmatch').trigger('click');
+	$.ajax({
+	 type: 'GET',
+	 url: 'https://api.twitch.tv/kraken/streams/vjasmash',
+	 headers: {
+	   'Client-ID': '7elmiqvvpz0z61dnmkjd7tk4xqej72'
+	 },
+	 success: function(data) {
+	 	if(data.stream != null)
+	   		$('#viewers').text(data.stream.viewers + " viewers")
+	   	else
+	   		$('#viewers').text("Stream is offline");
+	   	var time = new Date();
+		$('#lastupdated').text(
+		    ("0" + time.getHours()%12).slice(-2)   + ":" + 
+		    ("0" + time.getMinutes()).slice(-2) + ":" + 
+		    ("0" + time.getSeconds()).slice(-2));
+	 }
+	});
+	setInterval( function(){
+		$.ajax({
+		 type: 'GET',
+		 url: 'https://api.twitch.tv/kraken/streams/vjasmash',
+		 headers: {
+		   'Client-ID': '7elmiqvvpz0z61dnmkjd7tk4xqej72'
+		 },
+		 success: function(data) {
+		 	if(data.stream != null)
+		   		$('#viewers').text(data.stream.viewers + " viewers");
+		   	else
+		   		$('#viewers').text("Stream is offline.");
+		   	var time = new Date();
+			$('#lastupdated').text(
+			    ("0" + time.getHours()%12).slice(-2)   + ":" + 
+			    ("0" + time.getMinutes()).slice(-2) + ":" + 
+			    ("0" + time.getSeconds()).slice(-2));
+		 }
+		});
+	}, 60000);
 });
 
 $('#p1win').click(function() {
@@ -44,6 +95,16 @@ $('#p1win').click(function() {
 $('#p2win').click(function() {
 	$('#p2score').html(parseInt($('#p2score').html()) + 1);
 	operation('Win/2');
+});
+
+$('#p1lose').click(function() {
+	$('#p1score').html(parseInt($('#p1score').html()) - 1);
+	operation('Lose/1');
+});
+
+$('#p2lose').click(function() {
+	$('#p2score').html(parseInt($('#p2score').html()) - 1);
+	operation('Lose/2');
 });
 
 $('#reset').click(function() {
@@ -70,7 +131,98 @@ var myMatches = new Object();
 var match = null;
 
 function loadTruskiStats(p1, p2){
-	// To-do
+	var ajaxUrl = "/op/truskistats/"+p1+"/"+p2;
+	$.ajax({url: ajaxUrl, success: function(result){
+		var obj = JSON.parse(result);
+		$('#elochart').remove();
+		$('#elochartc').append('<canvas id="elochart"></canvas>');
+		var ctx1 = document.getElementById("elochart").getContext("2d");
+		var myChart = new Chart(ctx1, {
+			type: 'line',
+			data: {
+				labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+				datasets: [{
+					label: match.player1name,
+					data: obj.p1elo,
+					borderColor: 'blue',
+					fill: false
+				}, {
+					label: match.player2name,
+					data: obj.p2elo,
+					borderColor: 'red',
+					fill: false
+				}]
+			},
+			options: {
+				scales: {
+					xAxes:  [{
+						display: false
+					}]
+				}
+			}
+		});
+		$('#winchart').remove();
+		$('#winchartc').append('<canvas id="winchart"></canvas>');
+		var ctx2 = document.getElementById("winchart").getContext("2d");
+		var myChart = new Chart(ctx2, {
+			type: 'bar',
+			data: {
+				labels: [match.player1name, match.player2name],
+				datasets: [{
+					label: 'Wins',
+					data: [obj.p1wins, obj.p2wins],
+					backgroundColor: [
+						'blue',
+						'blue',
+					],
+					borderColor: [
+						'darkblue',
+						'darkblue'
+					],
+					borderWidth: 4
+				}, {
+					label: 'Losses',
+						data: [obj.p1losses, obj.p2losses],
+					backgroundColor: [
+						'red',
+						'red'
+					],
+					borderColor: [
+						'darkred',
+						'darkred'
+					],
+					borderWidth: 4
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}, 
+				animation: {
+					onComplete: function(animation) {
+
+						var ctx = this.chart.ctx;
+						var chart = this;
+
+						ctx.textAlign = "center";
+						ctx.textBaseline = "bottom";
+						ctx.font = "26px arial";
+
+						let datasets = this.config.data.datasets;
+						datasets.forEach(function (dataset, i) {
+							chart.getDatasetMeta(i).data.forEach(function (p, j) {
+								ctx.fillText(datasets[i].data[j], p._model.x, p._model.y - 0);
+							});
+						});
+					}
+				}
+			}
+		});
+	}});
 }
 
 function setmatch(matchid){
@@ -80,7 +232,7 @@ function setmatch(matchid){
 	$('#p1score').html(0);
 	$('#p2score').html(0);
 	$('#round').html(match.tournamentname+' - '+match.round);
-	loadTruskiStats(match.player1name, match.player2name);
+	loadTruskiStats(mapa[match.player1name], mapa[match.player2name]);
 	swap = false;
 	$('#myModal').modal('hide');
 	$('#submit').removeClass('disabled');
@@ -162,4 +314,50 @@ $('#closeModal2').click(function() {
 	$('#modal2').addClass('hidden');
 	$('#modal1').removeClass('hidden');
 	getMatches();
+});
+
+var charsel = null;
+
+$('#sp1char').click(function() {
+	charsel = 1;
+	$('#charselect').css('display', 'block');
+});
+
+$('#sp2char').click(function() {
+	charsel = 2;
+	$('#charselect').css('display', 'block');
+});
+
+$('.chararea').click(function(e){
+	$('#p'+charsel+'charpic').css('background-image', "url('/assets/chars/"+e.target.alt+".png')");
+	operation('SetImg/'+charsel+'/'+e.target.alt);
+	$('#charselect').css('display', 'none');
+});
+
+var commselect = null;
+
+$('#leftcommselect').click(function(){
+	commselect = "left";
+	$('#commselect').css('display', 'block');
+});
+
+$('#rightcommselect').click(function(){
+	commselect = "right";
+	$('#commselect').css('display', 'block');
+});
+
+var imagenames = ['lynx', 'hat', 'dino', 'alfster', 'stormz', 'leafeon', 'sead', 'truski'];
+var commnames = ['Lynx', 'Hat', 'Dino', 'Alfster', 'Stormz64', 'Leafeon523', 'Sea D', 'Truski'];
+var twitters = ['@SgtSkills', '', '', '', '@zackwind', '', '@Jeke68', '@DanWojtowicz'];
+
+$('.commarea').click(function(e){
+	$('#'+commselect + 'commpic').attr('src', "/assets/comms/"+imagenames[parseInt(e.target.alt)]+".jpg");
+	$('#'+commselect + 'commname').text(commnames[parseInt(e.target.alt)]);
+	operation('SetComms/'+commselect+'/'+e.target.alt);
+	$('#commselect').css('display', 'none');
+});
+
+$(document).keydown(function(event) {
+	if(event.keycode != 122)
+  		event.preventDefault();
 });
