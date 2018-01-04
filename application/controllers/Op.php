@@ -167,6 +167,29 @@ class Op extends CI_Controller {
 		$this->load->view('playerCharacter', $data);
 	}
 
+	public function charUpdate($side) {
+		header('Content-Type: text/event-stream');
+		header('Cache-Control: no-cache');
+		if($side == "left"){
+			$file = "p1img";
+		} else {
+			$file = "p2img";
+		}
+		$oldimg = contents($file);
+		while(true){
+			if($oldimg == ($img = contents($file))){
+				sleep(5);
+				continue;
+			}
+			$oldimg = $img;
+			echo "data: $img" . PHP_EOL;
+			echo PHP_EOL;
+			ob_flush();
+			flush();
+			sleep(5);
+		}
+	}
+
 	public function scoreSetImg($player, $img){
 		edit('p'.$player.'img', $img);
 	}
