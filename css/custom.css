@@ -61,7 +61,7 @@
 
 #commselect {
   position: fixed;
-  left: 300px;
+  left: 0px;
   top: 600px;
   display: none;
 }
