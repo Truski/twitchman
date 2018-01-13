@@ -199,7 +199,7 @@ class Op extends CI_Controller {
 		$twitters = array('@SgtSkills', '', 'YT: DinoProductions', '', '@zackwind', '', '@Jeke68', '@DanWojtowicz');
 
 		edit($side.'comm', $commnames[$id]);
-		edit($side.'twitter'.$twitters[$id]);
+		edit($side.'twitter',$twitters[$id]);
 	}
 
 	public function getelochanges(){
