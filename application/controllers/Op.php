@@ -66,7 +66,7 @@ class Op extends CI_Controller {
 		$c->verify_ssl = false;
 
 		// Place desired tournaments to fetch matches from
-		$tourney_names = array("btest1234");
+		$tourney_names = array("vjasmash-blizzards");
 
 		// Get all open matches from the tapitest tournament
 		$matches = array();
@@ -86,7 +86,7 @@ class Op extends CI_Controller {
 				$match->player1 = (int)$m->{'player1-id'};
 				$match->player2 = (int)$m->{'player2-id'};
 				$match->tournament = (int)$m->{'tournament-id'};
-				$match->round = round_name($m->round);
+				$match->round = round_name($m->round, $pool);
 				$match->matchid = (int)$m->id;
 				array_push($matches, $match);
 				$tournies[(int)$match->tournament] = null;
