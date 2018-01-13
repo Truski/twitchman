@@ -134,14 +134,19 @@
 <area class="chararea" alt="roy" title="" href="#" shape="rect" coords="904,249,1025,368" />
 </map>
 
-<img id="commselect" src="/assets/img/bteam.jpg" border="0" width="1100" height="325" usemap="#commmap" alt="" />
+<img id="commselect" src="/assets/img/cteam.png" border="0" width="1768" height="274" usemap="#commmap" alt="" />
 <map name="commmap" id="commmap">
-<area class="commarea" alt="0" title="" href="#" shape="rect" coords="0,0,133,277" />
-<area class="commarea" alt="1" title="" href="#" shape="rect" coords="138,0,271,277" />
-<area class="commarea" alt="2" title="" href="#" shape="rect" coords="280,0,413,277" />
-<area class="commarea" alt="3" title="" href="#" shape="rect" coords="417,0,550,277" />
-<area class="commarea" alt="4" title="" href="#" shape="rect" coords="553,0,686,277" />
-<area class="commarea" alt="5" title="" href="#" shape="rect" coords="691,0,824,277" />
-<area class="commarea" alt="6" title="" href="#" shape="rect" coords="828,0,961,277" />
-<area class="commarea" alt="7" title="" href="#" shape="rect" coords="967,0,1100,277" />
+<area class="commarea" alt="0" title="" href="#" shape="rect" coords="0,0,135,274" />
+<area class="commarea" alt="1" title="" href="#" shape="rect" coords="136,0,271,274" />
+<area class="commarea" alt="2" title="" href="#" shape="rect" coords="272,0,407,274" />
+<area class="commarea" alt="3" title="" href="#" shape="rect" coords="408,0,543,274" />
+<area class="commarea" alt="4" title="" href="#" shape="rect" coords="544,0,679,274" />
+<area class="commarea" alt="5" title="" href="#" shape="rect" coords="680,0,815,274" />
+<area class="commarea" alt="6" title="" href="#" shape="rect" coords="816,0,951,274" />
+<area class="commarea" alt="7" title="" href="#" shape="rect" coords="952,0,1087,274" />
+<area class="commarea" alt="8" title="" href="#" shape="rect" coords="1088,0,1223,274" />
+<area class="commarea" alt="9" title="" href="#" shape="rect" coords="1224,0,1359,274" />
+<area class="commarea" alt="10" title="" href="#" shape="rect" coords="1360,0,1495,274" />
+<area class="commarea" alt="11" title="" href="#" shape="rect" coords="1496,0,1631,274" />
+<area class="commarea" alt="12" title="" href="#" shape="rect" coords="1632,0,1767,274" />
 </map>
