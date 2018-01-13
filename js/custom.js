@@ -346,9 +346,9 @@ $('#rightcommselect').click(function(){
 	$('#commselect').css('display', 'block');
 });
 
-var imagenames = ['lynx', 'hat', 'dino', 'alfster', 'stormz', 'leafeon', 'sead', 'truski'];
-var commnames = ['Lynx', 'Hat', 'Dino', 'Alfster', 'Stormz64', 'Leafeon523', 'Sea D', 'Truski'];
-var twitters = ['@SgtSkills', '', '', '', '@zackwind', '', '@Jeke68', '@DanWojtowicz'];
+var imagenames = ['lynx', 'hat', 'dino', 'alfster', 'silverbullet', 'leafeon', 'sead', 'truski', 'jeffthechef', 'killgore52', 'rhyden', 'hawaii4oh', 'nina'];
+var commnames = ['Lynx', 'Hat', 'Dino', 'Alfster', 'Silverbullet', 'Leafeon523', 'Sea D', 'Truski', 'Jeffthechef', 'Killgore52', 'Rhyden', 'Hawaii4oh', 'YoshiGirl'];
+var twitters = ['@SgtSkills', '', 'YT: DinoProductions', '', '@zackwind', '', '@Jeke68', 'Twitch: folevilis', '', '', '', '', ''];
 
 $('.commarea').click(function(e){
 	$('#'+commselect + 'commpic').attr('src', "/assets/comms/"+imagenames[parseInt(e.target.alt)]+".jpg");

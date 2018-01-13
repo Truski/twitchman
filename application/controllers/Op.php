@@ -195,8 +195,8 @@ class Op extends CI_Controller {
 	}
 
 	public function scoreSetComms($side, $id){
-		$commnames = array('Lynx', 'Hat', 'Dino', 'Alfster', 'Stormz', 'Leafeon523', 'Sea D', 'Truski');
-		$twitters = array('@SgtSkills', '', 'YT: DinoProductions', '', '@zackwind', '', '@Jeke68', '@DanWojtowicz');
+		$commnames = array('Lynx', 'Hat', 'Dino', 'Alfster', 'Silverbullet', 'Leafeon523', 'Sea D', 'Truski', 'Jeffthechef', 'Killgore52', 'Rhyden', 'Hawaii4oh', 'YoshiGirl');
+		$twitters = array('@SgtSkills', '', 'YT: DinoProductions', '', '', '', '@Jeke68', 'twitch.tv/folevilis', '', '', '', '', '');
 
 		edit($side.'comm', $commnames[$id]);
 		edit($side.'twitter',$twitters[$id]);
