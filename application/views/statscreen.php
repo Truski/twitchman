@@ -11,7 +11,7 @@ html, body {
 }
 
 body {
-	background-image: url("/assets/img/winterbg.png");
+	background-image: url("/assets/img/inferno-2018-bg.png");
 	box-sizing: border-box;
 }
 
