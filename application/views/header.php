@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<iframe frameborder="0"
 								scrolling="no" 
 								id="chat_embed" 
-								src="http://www.twitch.tv/<?=TWITCH_NAME?>/chat" 
+								src="http://www.twitch.tv/embed/<?=TWITCH_NAME?>/chat"
 								height="725" 
 								width="100%">
 				</iframe>
