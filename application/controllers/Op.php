@@ -66,7 +66,7 @@ class Op extends CI_Controller {
 		$c->verify_ssl = false;
 
 		// Place desired tournaments to fetch matches from
-		$tourney_names = array("vjasmash-blizzards");
+		$tourney_names = array("vjasmash-infernotest");
 
 		// Get all open matches from the tapitest tournament
 		$matches = array();
@@ -206,5 +206,11 @@ class Op extends CI_Controller {
 		$this->load->database();
 		$this->load->model('stats');
 		$this->stats->elochanges();
+	}
+
+	public function getCharacters($playerid){
+		$this->load->database();
+		$this->load->model('stats');
+		var_dump($this->stats->getTopCharacters($playerid));
 	}
 }
