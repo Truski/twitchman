@@ -100,7 +100,7 @@ class Stats extends CI_Model {
     $result = $this->db->query($sql)->result_array();
     $tourneyid = 0;
     foreach ($result as $match){
-      if($tourneyid != $match['tourneyid']){
+      if($match['tourneyid'] != -1 && $tourneyid != $match['tourneyid']){
         // Run changes script with $tourneyid
         $sql = "SELECT playerid, elo FROM statistics ORDER BY elo DESC";
         foreach ($this->db->query($sql)->result_array() as $row){
@@ -108,6 +108,7 @@ class Stats extends CI_Model {
           $this->db->query($query, array($tourneyid, $row['playerid'], $row['elo']));
           echo 'Success - ' . $tourneyid . ' - ' . $row['playerid'] . ' - ' . $row['elo'] . '<br />';
         }
+
         $tourneyid = $match['tourneyid'];
       }
 
