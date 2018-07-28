@@ -158,6 +158,23 @@ class Op extends CI_Controller {
 		$this->load->view('statscreen', $arr);
 	}
 
+	public function statscreen2() {
+		$this->load->database();
+		$this->load->model('stats');
+		$players = $this->stats->getPlayerMap();
+		$p1name = contents("p1");
+		$p2name = contents("p2");
+		$pmap = array();
+		foreach($players as $p){
+			$pmap[$p['tag']] = $p['playerid'];
+		}
+		$arr = $this->stats->matchup($pmap[$p1name], $pmap[$p2name]);
+		$arr['p1name'] = $p1name;
+		$arr['p2name'] = $p2name;
+		$arr['roundname'] = contents('round');
+		$this->load->view('statscreen2', $arr);
+	}
+
 	public function leftPlayer(){
 		$data['img'] = contents("p1img");
 		$data['side'] = "left";
