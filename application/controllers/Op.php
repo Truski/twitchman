@@ -171,7 +171,10 @@ class Op extends CI_Controller {
 		$arr = $this->stats->matchup($pmap[$p1name], $pmap[$p2name]);
 		$arr['p1name'] = $p1name;
 		$arr['p2name'] = $p2name;
-		$arr['roundname'] = contents('round');
+		$arr['p1chars'] = $this->stats->getTopCharacters($pmap[$p1name]);
+		$arr['p2chars'] = $this->stats->getTopCharacters($pmap[$p2name]);
+		$arr['p1stage'] = $this->stats->getBestStage($pmap[$p1name]);
+		$arr['p2stage'] = $this->stats->getBestStage($pmap[$p2name]);
 		$this->load->view('statscreen2', $arr);
 	}
 

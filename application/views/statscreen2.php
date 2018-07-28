@@ -188,8 +188,7 @@ h2 {
 }
 
 .charbar {
-  margin: 25px;
-  margin-top:10px;
+  margin: 20px 25px;
   padding: 1em 2em;
   background-color: rgba(0, 0, 0, .5);
   height: 50px;
@@ -219,116 +218,90 @@ h1 {
   margin-top: 15px;
 }
 h2 {
+  margin-top: 10px;
   margin-bottom: 15px;
 }
 
 .stagerate {
-  margin-top: .25em;
+  margin-top: .65em;
   font-size: 1.2em;
+  margin-bottom: .85em;
+}
+
+.flexer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
 }
 </style>
 </head>
 <body>
   <div id="left-half">
-    <h1><?=$p1name?></h1>
-    <h2>Top Characters</h2>
-    <div class="charbar">
-      <img src="/assets/chars/falco.png" />
-      <div class="fillbar">
-        <div style="width: 60%" class="fill-left"> 
-          <span class="left-text">18W</span>
+    <div class="flexer">
+      <div class="sec-chars">
+        <h1><?=$p1name?></h1>
+        <h2>Most Played Characters</h2>
+        <?php foreach($p1chars as $char): ?>
+        <?php $percent1 = (int) ($char->wins / $char->games * 100);
+        $percent2 = 100 - $percent1; ?>
+        <div class="charbar">
+          <img src="/assets/chars/<?=$char->filename?>.png" />
+          <div class="fillbar">
+            <div style="width: <?=$percent1?>%" class="fill-left"> 
+              <span class="left-text"><?=$char->wins?>W</span>
+            </div>
+            <div style="width: <?=$percent2?>%" class="fill-right"> 
+              <span class="right-text"><?=$char->losses?>L</span>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <span class="winrate"><?=$percent1?>%</span>
+          <div class="clearfix"></div>
         </div>
-        <div style="width: 40%" class="fill-right"> 
-          <span class="right-text">6L</span>
-        </div>
-        <div class="clearfix"></div>
+        <?php endforeach; ?>
       </div>
-      <span class="winrate">60%</span>
-      <div class="clearfix"></div>
-    </div>
-    <div class="charbar">
-      <img src="/assets/chars/fox.png" />
-      <div class="fillbar">
-        <div style="width: 0%" class="fill-left"> 
-          <span class="left-text">18W</span>
-        </div>
-        <div style="width: 100%" class="fill-right"> 
-          <span class="right-text">3L</span>
-        </div>
-        <div class="clearfix"></div>
+      <div class="best-stage">
+        <h2>Best Stage</h2>
+        <img class="stage" src="/assets/stages/stage<?=$p1stage->stage?>.png" />
+        <?php $sum = (int) $p1stage->wins + $p1stage->losses; ?>
+        <?php $winrate = (int) ($p1stage->wins / $sum * 100); ?>
+        <p class="stagerate"><?=$winrate?>% Win Rate in <?=$sum?> Games</p>
       </div>
-      <span class="winrate">0%</span>
-      <div class="clearfix"></div>
-    </div>
-    <div class="charbar">
-      <img src="/assets/chars/donkeykong.png" />
-      <div class="fillbar">
-        <div style="width: 60%" class="fill-left"> 
-          <span class="left-text">18W</span>
-        </div>
-        <div style="width: 40%" class="fill-right"> 
-          <span class="right-text">6L</span>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="winrate">60%</div>
-      <div class="clearfix"></div>
-    </div>
-    <div class="best-stage">
-      <h2>Best Stage</h2>
-      <img class="stage" src="/assets/stages/stage0.png" />
-      <p class="stagerate">72% W/L in 8 games</p>
     </div>
   </div>
   <div id="right-half">
-    <h1><?=$p2name?></h1>
-    <h2>Top Characters</h2>
-    <div class="charbar">
-      <img src="/assets/chars/fox.png" />
-      <div class="fillbar">
-        <div style="width: 60%" class="fill-left"> 
-          <span class="left-text">18W</span>
+    <div class="flexer">
+      <div class="sec-chars">
+        <h1><?=$p2name?></h1>
+        <h2>Most Played Characters</h2>
+        <?php foreach($p2chars as $char): ?>
+        <?php $percent1 = (int) ($char->wins / $char->games * 100);
+        $percent2 = 100 - $percent1; ?>
+        <div class="charbar">
+          <img src="/assets/chars/<?=$char->filename?>.png" />
+          <div class="fillbar">
+            <div style="width: <?=$percent1?>%" class="fill-left"> 
+              <span class="left-text"><?=$char->wins?>W</span>
+            </div>
+            <div style="width: <?=$percent2?>%" class="fill-right"> 
+              <span class="right-text"><?=$char->losses?>L</span>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <span class="winrate"><?=$percent1?>%</span>
+          <div class="clearfix"></div>
         </div>
-        <div style="width: 40%" class="fill-right"> 
-          <span class="right-text">6L</span>
-        </div>
-        <div class="clearfix"></div>
+        <?php endforeach; ?>
       </div>
-      <span class="winrate">60%</span>
-      <div class="clearfix"></div>
-    </div>
-    <div class="charbar">
-      <img src="/assets/chars/peach.png" />
-      <div class="fillbar">
-        <div style="width: 0%" class="fill-left"> 
-          <span class="left-text">18W</span>
-        </div>
-        <div style="width: 100%" class="fill-right"> 
-          <span class="right-text">3L</span>
-        </div>
-        <div class="clearfix"></div>
+      <div class="best-stage">
+        <h2>Best Stage</h2>
+        <img class="stage" src="/assets/stages/stage<?=$p1stage->stage?>.png" />
+        <?php $sum = (int) $p2stage->wins + $p2stage->losses; ?>
+        <?php $winrate = (int) ($p2stage->wins / $sum * 100); ?>
+        <p class="stagerate"><?=$winrate?>% Win Rate in <?=$sum?> Games</p>
       </div>
-      <span class="winrate">0%</span>
-      <div class="clearfix"></div>
-    </div>
-    <div class="charbar">
-      <img src="/assets/chars/icees.png" />
-      <div class="fillbar">
-        <div style="width: 60%" class="fill-left"> 
-          <span class="left-text">18W</span>
-        </div>
-        <div style="width: 40%" class="fill-right"> 
-          <span class="right-text">6L</span>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="winrate">60%</div>
-      <div class="clearfix"></div>
-    </div>
-    <div class="best-stage">
-      <h2>Best Stage</h2>
-      <img class="stage" src="/assets/stages/stage0.png" />
-      <p class="stagerate">72% W/L in 8 games</p>
     </div>
   </div>
   <div class="clearfix"></div>
