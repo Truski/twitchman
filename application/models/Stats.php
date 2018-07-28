@@ -134,17 +134,8 @@ class Stats extends CI_Model {
   }
 
   public function getBestStage($playerid){
-    $sql = "SELECT stage FROM (SELECT stage, COUNT(*) as count FROM games WHERE winnerid = ? GROUP BY stage) as g WHERE count = (SELECT MAX(count) FROM (SELECT stage, COUNT(*) as count FROM games WHERE winnerid = ? GROUP BY stage) AS t)";
-    $stage = $this->db->query($sql, array($playerid, $playerid))->result()[0]->stage;
-    $sql = "SELECT COUNT(*) as count FROM games WHERE winnerid = ? AND stage = ?";
-    $wins = $this->db->query($sql, array($playerid, $stage))->result()[0]->count;
-    $sql = "SELECT COUNT(*) as count FROM games WHERE loserid = ? AND stage = ?";
-    $losses = $this->db->query($sql, array($playerid, $stage))->result()[0]->count;
-    $obj = new stdClass();
-    $obj->stage = $stage;
-    $obj->wins = $wins;
-    $obj->losses = $losses;
-    return $obj;
+    $sql = "SELECT stage, wins, losses, wins / (wins + losses) as average FROM (SELECT stage, COUNT(*) as wins FROM games WHERE winnerid = ? GROUP BY stage) AS w NATURAL JOIN (SELECT stage, COUNT(*) as losses FROM games WHERE loserid = ? group by stage) AS l order by average DESC limit 1";
+    return $this->db->query($sql, array($playerid, $playerid))->result()[0];
   }
 
 }

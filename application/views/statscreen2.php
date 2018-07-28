@@ -297,7 +297,7 @@ h2 {
       </div>
       <div class="best-stage">
         <h2>Best Stage</h2>
-        <img class="stage" src="/assets/stages/stage<?=$p1stage->stage?>.png" />
+        <img class="stage" src="/assets/stages/stage<?=$p2stage->stage?>.png" />
         <?php $sum = (int) $p2stage->wins + $p2stage->losses; ?>
         <?php $winrate = (int) ($p2stage->wins / $sum * 100); ?>
         <p class="stagerate"><?=$winrate?>% Win Rate in <?=$sum?> Games</p>
