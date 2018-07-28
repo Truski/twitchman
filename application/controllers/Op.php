@@ -66,7 +66,10 @@ class Op extends CI_Controller {
 		$c->verify_ssl = false;
 
 		// Place desired tournaments to fetch matches from
-		$tourney_names = array("vjasmash-infernotest");
+		$pool_tournies = array("vjasmash-inferno2018a", "vjasmash-inferno2018b", "vjasmash-inferno2018c", "vjasmash-inferno2018d");
+		$crews_tournies = array("vjasmash-inferno2018crews");
+		$top8 = array("vjasmash-2018top8");
+		$tourney_names = $pool_tournies;
 
 		// Get all open matches from the tapitest tournament
 		$matches = array();

@@ -40,7 +40,9 @@ if(!function_exists('round_name')){
 				default:
 					return "Unknown Round";
 			}
-		} else {
+		} else if($tname == "vjasmash-inferno2018crews") {
+			return "Crew Battle";
+		} else if($tname == "vjasmash-inferno2018top8") {
 			switch($code){
 				case 1:
 					return "Winners Quarterfinals";
@@ -51,14 +53,18 @@ if(!function_exists('round_name')){
 				case 4:
 					return "Grand Finals";
 				case -1:
-					return "Losers Quarterfinals";
+					return "Top 8 Losers";
 				case -2:
-					return "Losers Semifinals";
+					return "Losers Quarterfinals";
 				case -3:
+					return "Losers Semifinals";
+				case -4:
 					return "Losers Finals";
 				default:
 					return "Unknown Round";
 			}
+		} else {
+			return "Pools";
 		}
 	}
 }
