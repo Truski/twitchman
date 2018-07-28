@@ -163,8 +163,12 @@ h1 {
 <h2>Last Time Played</h2>
 <?php if ($last != NULL) : ?>
 <h1><?=$last['winner'] ?> won<br /><?=$last['wins'] . ' - ' . $last['losses']?></h1>
+<?php if($last['tourneyname'] != NULL):?>
 <h1><?=$last['roundname']?></h1>
 <h1><?=$last['tourneyname']?></h1>
+<?php else : ?>
+	<h1>Exhibition</h1>
+<?php endif; ?>
 <?php else : ?>
 	<h1>No match history.</h1>
 <?php endif; ?>

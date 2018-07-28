@@ -74,7 +74,7 @@ class Stats extends CI_Model {
 
     // Last time played
 
-    $sql = "SELECT winner.tag as winner, loser.tag as loser, wins, losses, tourneyname, roundname FROM matches m NATURAL JOIN tournaments NATURAL JOIN rounds INNER JOIN profiles winner ON m.winnerid = winner.playerid INNER JOIN profiles loser ON m.loserid = loser.playerid  WHERE winnerid = ? AND loserid = ? OR winnerid = ? AND loserid = ? ORDER BY matchid DESC LIMIT 1";
+    $sql = "SELECT winner.tag as winner, loser.tag as loser, wins, losses, tourneyname, roundname FROM matches m NATURAL LEFT OUTER JOIN tournaments NATURAL JOIN rounds INNER JOIN profiles winner ON m.winnerid = winner.playerid INNER JOIN profiles loser ON m.loserid = loser.playerid  WHERE winnerid = ? AND loserid = ? OR winnerid = ? AND loserid = ? ORDER BY matchid DESC LIMIT 1";
     $result = $this->db->query($sql, array($p1, $p2, $p2, $p1))->result_array();
     if(empty($result)){
       $arr['last'] = NULL;
