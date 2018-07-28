@@ -134,7 +134,7 @@
 <area class="chararea" alt="roy" title="" href="#" shape="rect" coords="904,249,1025,368" />
 </map>
 
-<img id="commselect" src="/assets/img/cteam.png" border="0" width="1768" height="274" usemap="#commmap" alt="" />
+<img id="commselect" src="/assets/img/dteam.png" border="0" width="1903" height="274" usemap="#commmap" alt="" />
 <map name="commmap" id="commmap">
 <area class="commarea" alt="0" title="" href="#" shape="rect" coords="0,0,135,274" />
 <area class="commarea" alt="1" title="" href="#" shape="rect" coords="136,0,271,274" />
@@ -149,4 +149,5 @@
 <area class="commarea" alt="10" title="" href="#" shape="rect" coords="1360,0,1495,274" />
 <area class="commarea" alt="11" title="" href="#" shape="rect" coords="1496,0,1631,274" />
 <area class="commarea" alt="12" title="" href="#" shape="rect" coords="1632,0,1767,274" />
+<area class="commarea" alt="13" title="" href="#" shape="rect" coords="1768,0,1903,274" />
 </map>

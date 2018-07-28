@@ -346,9 +346,9 @@ $('#rightcommselect').click(function(){
 	$('#commselect').css('display', 'block');
 });
 
-var imagenames = ['lynx', 'hat', 'dino', 'alfster', 'silverbullet', 'leafeon', 'sead', 'truski', 'jeffthechef', 'killgore52', 'rhyden', 'hawaii4oh', 'nina'];
-var commnames = ['Lynx', 'Hat', 'Dino', 'Alfster', 'Silverbullet', 'Leafeon523', 'Sea D', 'Truski', 'Jeffthechef', 'Killgore52', 'Rhyden', 'Hawaii4oh', 'YoshiGirl'];
-var twitters = ['@SgtSkills', '', 'YT: DinoProductions', '', '@zackwind', '', '@Jeke68', 'Twitch: folevilis', '', '', '', '', ''];
+var imagenames = ['jaypea', 'hat', 'dino', 'alfster', 'frumpis', 'leafeon', 'sead', 'truski', 'jeffthechef', 'wumpo', 'powerpuffboi', 'aueagle', 'tacoman', 'malhotra360'];
+var commnames = ['Jaypea', 'Hat', 'Dino', 'Alfster', 'Frumpis', 'Leafeon523', 'Sea D', 'Truski', 'Jeffthechef', 'Wumpo', 'PowerPuffBoi', 'AU Eagle', 'Taco Man', 'Malhotra360'];
+var twitters = ['@SgtSkills', '', 'YT: DinoProductions', '', '@zackwind', '', '@Jeke68', 'Twitch: folevilis', '', '', '', '', '', ''];
 
 $('.commarea').click(function(e){
 	$('#'+commselect + 'commpic').attr('src', "/assets/comms/"+imagenames[parseInt(e.target.alt)]+".jpg");
