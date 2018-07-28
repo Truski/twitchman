@@ -68,8 +68,8 @@ class Op extends CI_Controller {
 		// Place desired tournaments to fetch matches from
 		$pool_tournies = array("vjasmash-inferno2018a", "vjasmash-inferno2018b", "vjasmash-inferno2018c", "vjasmash-inferno2018d");
 		$crews_tournies = array("vjasmash-inferno2018crews");
-		$top8 = array("vjasmash-2018top8");
-		$tourney_names = $pool_tournies;
+		$top8 = array("vjasmash-inferno2018top8");
+		$tourney_names = $top8;
 
 		// Get all open matches from the tapitest tournament
 		$matches = array();

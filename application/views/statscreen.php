@@ -15,11 +15,6 @@ body {
 	box-sizing: border-box;
 }
 
-#title > div {
-	display: inline-block;
-	font-size: 3rem;
-}
-
 #vs {
 	text-align: center;
 	width: 100px;
@@ -38,8 +33,9 @@ body {
 
 #title {
 	width: 1280px;
-	font-size: 0;
+	font-size: 3rem;
 	margin-top: 20px;
+	text-align: center;
 }
 
 .mini {
@@ -142,11 +138,7 @@ h1 {
 <script src="/js/Chart.bundle.min.js"></script>
 </head>
 <body>
-<div id="title">
-<div id="leftname"><?=$p1name?></div>
-<div id="vs"><span class="mini">VS</span></div>
-<div id="rightname"><?=$p2name?></div>
-</div>
+<div id="title"><?=$p1name?> <span class="mini">VS</span> <?=$p2name?></div>
 <div id="rounddiv"><?=$roundname?></div>
 <div id="labels">
 <h2 id="wl">Wins and Losses</h2>
