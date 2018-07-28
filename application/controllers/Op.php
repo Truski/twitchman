@@ -233,4 +233,10 @@ class Op extends CI_Controller {
 		$this->load->model('stats');
 		var_dump($this->stats->getTopCharacters($playerid));
 	}
+
+	public function getBestStage($playerid){
+		$this->load->database();
+		$this->load->model('stats');
+		var_dump($this->stats->getBestStage($playerid));
+	}
 }
