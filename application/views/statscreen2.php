@@ -253,7 +253,7 @@ h2 {
               <span class="left-text"><?=$char->wins?>W</span>
             </div>
             <div style="width: <?=$percent2?>%" class="fill-right"> 
-              <span class="right-text"><?=$char->losses?>L</span>
+              <span class="right-text"><?=$char->losses > 0 ? $char->losses . 'L' : ''?></span>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -286,7 +286,7 @@ h2 {
               <span class="left-text"><?=$char->wins?>W</span>
             </div>
             <div style="width: <?=$percent2?>%" class="fill-right"> 
-              <span class="right-text"><?=$char->losses?>L</span>
+              <span class="right-text"><?=$char->losses > 0 ? $char->losses . 'L' : ''?></span>
             </div>
             <div class="clearfix"></div>
           </div>
