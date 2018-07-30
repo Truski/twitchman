@@ -347,7 +347,7 @@ $('#rightcommselect').click(function(){
 });
 
 var imagenames = ['jaypea', 'hat', 'dino', 'alfster', 'frumpis', 'leafeon', 'sead', 'truski', 'jeffthechef', 'wumpo', 'powerpuffboi', 'aueagle', 'tacoman', 'malhotra360'];
-var commnames = ['Jaypea', 'Hat', 'Dino', 'Alfster', 'Frumpis', 'Leafeon523', 'Sea D', 'Truski', 'Jeffthechef', 'Wumpo', 'PowerPuffBoi', 'AU Eagle', 'Taco Man', 'Malhotra360'];
+var commnames = ['Jaypea', 'Hat', 'Dino', 'Alfster', 'Sippin', 'Leafeon523', 'Sea D', 'Truski', 'Jeffthechef', 'Wumpo', 'PowerPuffBoi', 'AU Eagle', 'Taco Man', 'Malhotra360'];
 var twitters = ['@SgtSkills', '', 'YT: DinoProductions', '', '@zackwind', '', '@Jeke68', 'Twitch: folevilis', '', '', '', '', '', ''];
 
 $('.commarea').click(function(e){
