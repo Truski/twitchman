@@ -129,7 +129,7 @@ class Stats extends CI_Model {
   }
 
   public function getTopCharacters($playerid){
-    $sql = "SELECT filename, longname AS 'Character',  COUNT(*) AS games, SUM(CASE WHEN type = 'WIN' THEN 1 ELSE 0 END) as wins, SUM(CASE WHEN type='LOSS' THEN 1 ELSE 0 END) as losses FROM (SELECT 'WIN' as type, winnerchar as name FROM games WHERE winnerid = ? UNION ALL SELECT 'LOSS' as type, loserchar as name FROM games WHERE loserid = ?) AS temp INNER JOIN chars ON temp.name = chars.id GROUP BY name ORDER BY games DESC LIMIT 3";
+    $sql = "SELECT filename, longname AS 'Character',  COUNT(*) AS games, SUM(CASE WHEN type = 'WIN' THEN 1 ELSE 0 END) as wins, SUM(CASE WHEN type='LOSS' THEN 1 ELSE 0 END) as losses FROM (SELECT 'WIN' as type, winnerchar as name FROM games WHERE winnerid = ? UNION ALL SELECT 'LOSS' as type, loserchar as name FROM games WHERE loserid = ?) AS temp INNER JOIN chars ON temp.name = chars.id GROUP BY filename ORDER BY games DESC LIMIT 3";
     return $this->db->query($sql, array($playerid, $playerid))->result();
   }
 
